@@ -75,6 +75,15 @@ S3_DEFAULT_BLOCK_SIZE = 5 * 2**20
 """Default block size value used to send multi-part uploads to S3.
 Typically 5Mb is minimum allowed by the API."""
 
+S3_UPLOAD_URL_EXPIRATION = 3600 * 24 * 7
+"""Number of seconds the file upload URL will be valid. The default here is 7 days
+to allow large file uploads with large number of chunks to be completed. This is
+currently the maximum allowed by the AWS.
+See `Amazon Boto3 documentation on presigned URLs
+<https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url>`_
+for more information.
+"""
+
 S3_CONFIG_EXTRA = {}
 """Additional configuration to be passed to S3f3.
 In some cases, specially those not using AWS S3, some extra configuration might be needed.
