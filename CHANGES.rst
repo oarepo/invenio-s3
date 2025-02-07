@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version X.Y.Z (released YYYY-MM-DD)
+
+- Add configuration variable to allow extra configuration for S3FS. (closes #35)
+
 Version 2.0.0 (release 2024-12-10)
 
 - filename: replace encoding/decoding

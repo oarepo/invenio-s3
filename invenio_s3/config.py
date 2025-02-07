@@ -74,3 +74,16 @@ information.
 S3_DEFAULT_BLOCK_SIZE = 5 * 2**20
 """Default block size value used to send multi-part uploads to S3.
 Typically 5Mb is minimum allowed by the API."""
+
+S3_CONFIG_EXTRA = {}
+"""Additional configuration to be passed to S3f3.
+In some cases, specially those not using AWS S3, some extra configuration might be needed.
+
+ .. code-block:: python
+
+    {
+        "request_checksum_calculation": "WHEN_REQUIRED",
+        "response_checksum_validation": "WHEN_REQUIRED",
+    }
+
+"""
