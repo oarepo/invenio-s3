@@ -7,7 +7,7 @@
 Changes
 =======
 
-Version X.Y.Z (released YYYY-MM-DD)
+Version 2.0.1 (released 2025-03-26)
 
 - Add configuration variable to allow extra configuration for S3FS. (closes #35)
 
