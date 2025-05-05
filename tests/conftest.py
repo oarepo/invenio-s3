@@ -20,6 +20,7 @@ from invenio_s3 import S3FSFileStorage
 @pytest.fixture(scope="module")
 def app_config(app_config):
     """Customize application configuration."""
+    app_config["THEME_FRONTPAGE"] = False
     app_config["FILES_REST_STORAGE_FACTORY"] = "invenio_s3.s3fs_storage_factory"
     app_config["S3_ENDPOINT_URL"] = None
     app_config["S3_ACCESS_KEY_ID"] = "test"
