@@ -8,7 +8,7 @@
 
 """Low level client for S3 multipart uploads."""
 
-import datetime
+from datetime import datetime, timedelta, timezone
 
 # WARNING: low-level code. The underlying s3fs currently does not have support
 # for multipart uploads without keeping the S3File instance in memory between requests.
@@ -91,18 +91,21 @@ class MultipartS3File:
         return ret
 
     def get_part_links(self, max_parts, url_expiration):
-        """
-        Generate pre-signed URLs for the parts of the multipart upload.
+        """Generate pre-signed URLs for the parts of the multipart upload.
 
         :param max_parts: The maximum number of parts to list.
         :param url_expiration: The expiration time of the URLs in seconds
 
         :returns: The list of parts with pre-signed URLs and expiration times.
         """
-        expiration = datetime.datetime.utcnow() + datetime.timedelta(
-            seconds=url_expiration
-        )
-        expiration = expiration.replace(microsecond=0).isoformat() + "Z"
+        # AWS S3 requires the expiration timestamp to be in UTC.
+        expiration = datetime.now(timezone.utc) + timedelta(seconds=url_expiration)
+
+        # AWS expects the timestamp in ISO 8601 format ending with 'Z' (indicating UTC),
+        # e.g., '2025-05-20T16:03:11Z'.
+        # Since `isoformat()` on a timezone-aware datetime includes '+00:00' instead of 'Z',
+        # we first remove the timezone info and manually append 'Z'.
+        expiration = expiration.replace(tzinfo=None).isoformat(timespec="seconds") + "Z"
 
         return {
             "parts": [
