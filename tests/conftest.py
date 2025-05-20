@@ -10,13 +10,11 @@ import hashlib
 
 import boto3
 import pytest
-from flask import Flask, current_app
+from flask import current_app
 from invenio_app.factory import create_api
-from invenio_db import InvenioDB
-from invenio_files_rest import InvenioFilesREST
 from moto import mock_aws
 
-from invenio_s3 import InvenioS3, S3FSFileStorage
+from invenio_s3 import S3FSFileStorage
 
 
 @pytest.fixture(scope="module")
@@ -26,6 +24,7 @@ def app_config(app_config):
     app_config["S3_ENDPOINT_URL"] = None
     app_config["S3_ACCESS_KEY_ID"] = "test"
     app_config["S3_SECRECT_ACCESS_KEY"] = "test"
+    app_config["THEME_FRONTPAGE"] = False
     return app_config
 
 
