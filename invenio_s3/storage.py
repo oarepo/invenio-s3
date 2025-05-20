@@ -9,7 +9,6 @@
 
 from functools import partial, wraps
 from math import ceil
-from typing import Any, Dict, Union
 
 import s3fs
 from flask import current_app
@@ -189,9 +188,7 @@ class S3FSFileStorage(PyFSFileStorage):
         """
         return super(S3FSFileStorage, self).save(*args, **kwargs)
 
-    def multipart_initialize_upload(
-        self, parts, size, part_size
-    ) -> Union[None, Dict[str, str]]:
+    def multipart_initialize_upload(self, parts, size, part_size):
         """
         Initialize a multipart upload.
 
@@ -213,9 +210,7 @@ class S3FSFileStorage(PyFSFileStorage):
         # for multipart uploads without keeping the S3File instance in memory between requests.
         return MultipartS3File(*self._get_fs(), upload_id=upload_id)
 
-    def multipart_set_content(
-        self, part, stream, content_length, **multipart_metadata
-    ) -> Union[None, Dict[str, str]]:
+    def multipart_set_content(self, part, stream, content_length, **multipart_metadata):
         """Set the content of a part of the multipart upload.
 
         This method will never be called
@@ -253,7 +248,7 @@ class S3FSFileStorage(PyFSFileStorage):
         f = self.multipart_file(multipart_metadata["uploadId"])
         f.abort_multipart_upload()
 
-    def multipart_links(self, **multipart_metadata) -> Dict[str, Any]:
+    def multipart_links(self, **multipart_metadata):
         """Generate links for the parts of the multipart upload.
 
         :param multipart_metadata: The metadata returned by the multipart_initialize_upload
