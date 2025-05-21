@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version 2.1.0 (released 2025-05-21)
+
+- Adds multipart upload mechanism
+- Fix tests
+
 Version 2.0.1 (released 2025-03-26)
 
 - Add configuration variable to allow extra configuration for S3FS. (closes #35)
