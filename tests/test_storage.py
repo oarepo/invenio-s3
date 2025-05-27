@@ -316,8 +316,9 @@ def test_copy(s3_bucket, s3_storage):
 
     s3_copy_path = f"{s3_bucket}/path/to/copy/data"
     s3fs_copy = S3FSFileStorage(s3_copy_path)
-    s3fs_copy.copy(s3_storage)
+    uri, _, _ = s3fs_copy.copy(s3_storage)
 
+    assert uri == s3_copy_path
     assert s3fs_copy.open().read() == data
 
     tmppath = tempfile.mkdtemp()
@@ -325,7 +326,9 @@ def test_copy(s3_bucket, s3_storage):
     s = PyFSFileStorage(os.path.join(tmppath, "anotherpath/data"))
     data = b"othertest"
     s.save(BytesIO(data))
-    s3fs_copy.copy(s)
+    uri, _, _ = s3fs_copy.copy(s)
+
+    assert uri == s3_copy_path
     assert s3fs_copy.open().read() == data
 
     shutil.rmtree(tmppath)
