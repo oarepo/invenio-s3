@@ -7,6 +7,13 @@
 Changes
 =======
 
+Version 3.0.0 (released 2025-06-01)
+
+- Bump S3FS version (async) and update tests
+- Remove deprecated configuration variables
+- Adapt multipart to work with async S3FS methods
+- Fix copy return value
+
 Version 2.1.0 (released 2025-05-21)
 
 - Adds multipart upload mechanism
